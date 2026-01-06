@@ -16,6 +16,7 @@ public class Comment {
     }
 
     public Long getId() { return id; }
+    public Long getBookId() { return bookId; }
     public String getText() { return text; }
     public LocalDateTime getCreatedAt() { return createdAt; }
 }
