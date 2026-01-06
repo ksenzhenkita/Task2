@@ -11,11 +11,11 @@ public class ArchitectureTest {
     @ArchTest
     static final ArchRule layers_are_respected = layeredArchitecture()
             .consideringAllDependencies()
-            // Визначаємо шари
-            .layer("Web").definedBy("..servlet..")
+            // Тепер Web — це і сервлети, і конфігурація
+            .layer("Web").definedBy("..servlet..", "..config..")
             .layer("Persistence").definedBy("..repository..")
             .layer("Core").definedBy("..service..", "..model..", "..port..")
-            // Перевіряємо правила залежностей
+
             .whereLayer("Web").mayNotBeAccessedByAnyLayer()
             .whereLayer("Persistence").mayOnlyBeAccessedByLayers("Web")
             .whereLayer("Core").mayOnlyBeAccessedByLayers("Web", "Persistence");
