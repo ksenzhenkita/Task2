@@ -19,11 +19,11 @@ public class JdbcCommentRepository implements CommentRepositoryPort {
     public void save(Comment comment) {
         String sql = "INSERT INTO comments (book_id, text, created_at) VALUES (?, ?, ?)";
         try (Connection conn = dbConfig.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setLong(1, comment.getBookId()); // Додай це поле в модель Comment, якщо забув раніше
-            pstmt.setString(2, comment.getText());
-            pstmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
-            pstmt.executeUpdate();
+             PreparedStatement st = conn.prepareStatement(sql)) {
+            st.setLong(1, comment.getBookId());
+            st.setString(2, comment.getText());
+            st.setTimestamp(3, java.sql.Timestamp.valueOf(comment.getCreatedAt()));
+            st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

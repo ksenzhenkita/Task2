@@ -3,15 +3,18 @@ package sumdu.edu.ua.service;
 import org.springframework.stereotype.Service;
 import sumdu.edu.ua.model.Book;
 import sumdu.edu.ua.model.Comment;
+import sumdu.edu.ua.port.CatalogRepositoryPort;
 import sumdu.edu.ua.port.CommentRepositoryPort;
 import java.time.LocalDateTime;
 
 @Service
 public class BookService {
     private final CommentRepositoryPort commentRepository;
+    private final CatalogRepositoryPort catalogRepository;
 
-    public BookService(CommentRepositoryPort commentRepository) {
+    public BookService(CommentRepositoryPort commentRepository, CatalogRepositoryPort catalogRepository) {
         this.commentRepository = commentRepository;
+        this.catalogRepository = catalogRepository;
     }
 
     // Валідація: назва книги не може бути порожньою
@@ -23,7 +26,12 @@ public class BookService {
 
     // Метод для отримання книги за ID (логіку пошуку реалізує persistence)
     public Book getBookById(Long id) {
-        if (id <= 0) throw new IllegalArgumentException("Некоректний ID книги");
+        // Валідація ідентифікатора згідно з завданням
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException("Некоректний ID книги");
+        }
+
+        // Використовуємо поле КЛАСУ, а не створюємо нову змінну
         return catalogRepository.findById(id);
     }
 

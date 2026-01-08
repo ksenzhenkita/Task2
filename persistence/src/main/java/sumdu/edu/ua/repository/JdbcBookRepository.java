@@ -16,6 +16,23 @@ public class JdbcBookRepository implements CatalogRepositoryPort {
     private DbConfig dbConfig;
 
     @Override
+    public Book findById(Long id) {
+        String sql = "SELECT * FROM books WHERE id = ?";
+        try (Connection conn = dbConfig.getConnection(); // Використовуємо поле dbConfig (не статично)
+             PreparedStatement st = conn.prepareStatement(sql)) {
+            st.setLong(1, id);
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    return new Book(rs.getLong("id"), rs.getString("title"), rs.getString("author"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public List<Book> findAll() {
         List<Book> books = new ArrayList<>();
         String sql = "SELECT * FROM books";
@@ -35,24 +52,6 @@ public class JdbcBookRepository implements CatalogRepositoryPort {
             e.printStackTrace();
         }
         return books;
-    }
-
-    @Override
-    public Book findById(Long id) {
-        String sql = "SELECT * FROM books WHERE id = ?";
-        try (Connection conn = dbConfig.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setLong(1, id);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    return new Book(rs.getLong("id"), rs.getString("title"), rs.getString("author"));
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     @Override
