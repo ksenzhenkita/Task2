@@ -1,5 +1,6 @@
 package sumdu.edu.ua.service;
 
+import org.springframework.stereotype.Service;
 import sumdu.edu.ua.model.Comment;
 import sumdu.edu.ua.port.CommentRepositoryPort;
 import java.time.LocalDateTime;
