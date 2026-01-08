@@ -1,6 +1,7 @@
 package sumdu.edu.ua.service;
 
 import org.springframework.stereotype.Service;
+import sumdu.edu.ua.model.Book;
 import sumdu.edu.ua.model.Comment;
 import sumdu.edu.ua.port.CommentRepositoryPort;
 import java.time.LocalDateTime;
@@ -18,6 +19,12 @@ public class BookService {
         if (title == null || title.trim().isEmpty()) {
             throw new IllegalArgumentException("Назва книги не може бути порожньою!");
         }
+    }
+
+    // Метод для отримання книги за ID (логіку пошуку реалізує persistence)
+    public Book getBookById(Long id) {
+        if (id <= 0) throw new IllegalArgumentException("Некоректний ID книги");
+        return catalogRepository.findById(id);
     }
 
     // Бізнес-правило: видалення лише протягом 24 годин
