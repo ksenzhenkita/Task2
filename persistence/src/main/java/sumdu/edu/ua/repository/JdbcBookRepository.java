@@ -1,5 +1,7 @@
 package sumdu.edu.ua.repository;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import sumdu.edu.ua.model.Book;
 import sumdu.edu.ua.port.CatalogRepositoryPort;
 
@@ -7,7 +9,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class JdbcBookRepository implements CatalogRepositoryPort {
+
+    @Autowired // Field Injection (тільки для демонстрації в лабі)
+    private DbConfig dbConfig;
 
     @Override
     public List<Book> findAll() {
