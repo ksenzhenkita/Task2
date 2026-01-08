@@ -2,9 +2,11 @@ package sumdu.edu.ua.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sumdu.edu.ua.model.Book;
+import sumdu.edu.ua.model.Comment;
 import sumdu.edu.ua.port.CatalogRepositoryPort;
 import sumdu.edu.ua.service.BookService;
 
@@ -15,7 +17,9 @@ import java.util.List;
 public class BookController {
 
     private final CatalogRepositoryPort bookRepository;
-    private final BookService bookService;
+
+    @Autowired
+    private BookService bookService;
 
     public BookController(CatalogRepositoryPort bookRepository, BookService bookService) {
         this.bookRepository = bookRepository;
@@ -50,5 +54,11 @@ public class BookController {
     @GetMapping("/version")
     public String getVersion() {
         return appVersion;
+    }
+
+    @PostMapping("/comments")
+    public ResponseEntity<String> addComment(@RequestBody Comment comment) {
+        bookService.addComment(comment.getBookId(), comment.getText());
+        return ResponseEntity.ok("Comment added successfully");
     }
 }

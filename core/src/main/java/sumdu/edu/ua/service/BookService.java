@@ -24,6 +24,19 @@ public class BookService {
         }
     }
 
+    public void addComment(Long bookId, String text) {
+        if (text == null || text.trim().isEmpty()) {
+            throw new IllegalArgumentException("Текст коментаря не може бути порожнім");
+        }
+
+        Comment comment = new Comment();
+        comment.setBookId(bookId);
+        comment.setText(text);
+        comment.setCreatedAt(LocalDateTime.now());
+
+        commentRepository.save(comment);
+    }
+
     // Метод для отримання книги за ID (логіку пошуку реалізує persistence)
     public Book getBookById(Long id) {
         // Валідація ідентифікатора згідно з завданням
