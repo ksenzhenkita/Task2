@@ -1,5 +1,5 @@
 server:
   port: 8082
 
-app:
-  name: "SumDU Library Boot"
+library:
+  welcome-message: "Welcome to our Spring Boot Library!"
