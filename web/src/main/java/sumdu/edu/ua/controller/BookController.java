@@ -17,14 +17,24 @@ public class BookController {
         this.bookRepository = bookRepository;
     }
 
-    @Value("${library.welcome-message}")
+    @Value("${library.welcome-message:Вітаємо у бібліотеці!}")
     private String message;
+
+    @Autowired
+    private String appVersion;
 
     @GetMapping
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
 
-    @Autowired
-    private String appVersion;
+    @GetMapping("/welcome")
+    public String getWelcome() {
+        return message;
+    }
+
+    @GetMapping("/version")
+    public String getVersion() {
+        return appVersion;
+    }
 }

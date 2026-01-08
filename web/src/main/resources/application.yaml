@@ -1,6 +1,5 @@
 server:
   port: 8082
 
-app:
-  name: "My Library System"
-  custom-message: "Hello from Spring Boot Config!"
+library:
+  welcome-message: "Welcome to our Spring Boot Library!"
