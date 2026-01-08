@@ -58,6 +58,7 @@ public class BookController {
 
     @PostMapping("/comments")
     public ResponseEntity<String> addComment(@RequestBody Comment comment) {
+        System.out.println("DEBUG: Отримано коментар: bookId=" + comment.getBookId() + ", text=" + comment.getText());
         bookService.addComment(comment.getBookId(), comment.getText());
         return ResponseEntity.ok("Comment added successfully");
     }

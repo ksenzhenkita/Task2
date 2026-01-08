@@ -22,7 +22,7 @@ public class Comment {
         this.bookId = bookId;
     }
 
-    public void setText(String Text) {
+    public void setText(String text) {
         this.text = text;
     }
 
@@ -30,8 +30,9 @@ public class Comment {
         this.createdAt = createdAt;
     }
 
-    //public Long getId() { return id; }
+    public Long getId() { return id; }
     public Long getBookId() { return bookId; }
-    public String getText() { return text; }
+    public String getText() {
+        return text; }
     public LocalDateTime getCreatedAt() { return createdAt; }
 }
