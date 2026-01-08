@@ -1,5 +1,6 @@
 package sumdu.edu.ua.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sumdu.edu.ua.model.Book;
 import sumdu.edu.ua.port.CatalogRepositoryPort;
@@ -20,4 +21,7 @@ public class BookController {
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
+
+    @Autowired
+    private String appVersion;
 }
