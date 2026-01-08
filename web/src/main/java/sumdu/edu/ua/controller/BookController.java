@@ -8,7 +8,7 @@ import sumdu.edu.ua.port.CatalogRepositoryPort;
 import java.util.List;
 
 @RestController // Поєднує @Controller та @ResponseBody
-@RequestMapping("/api/books") // Базовий шлях для всіх методів
+@RequestMapping("/books") // Базовий шлях для всіх методів
 public class BookController {
 
     private final CatalogRepositoryPort bookRepository;

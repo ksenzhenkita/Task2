@@ -12,7 +12,7 @@ public class ArchitectureTest {
     static final ArchRule layers_are_respected = layeredArchitecture()
             .consideringAllDependencies()
             // Тепер Web — це і сервлети, і конфігурація
-            .layer("Web").definedBy("..servlet..", "..config..")
+            .layer("Web").definedBy("..servlet..", "..config..", "..controller..")
             .layer("Persistence").definedBy("..repository..")
             .layer("Core").definedBy("..service..", "..model..", "..port..")
 

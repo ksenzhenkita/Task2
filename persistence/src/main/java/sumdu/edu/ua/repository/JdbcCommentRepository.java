@@ -18,7 +18,7 @@ public class JdbcCommentRepository implements CommentRepositoryPort {
     @Override
     public void save(Comment comment) {
         String sql = "INSERT INTO comments (book_id, text, created_at) VALUES (?, ?, ?)";
-        try (Connection conn = DbConfig.getConnection();
+        try (Connection conn = dbConfig.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setLong(1, comment.getBookId()); // Додай це поле в модель Comment, якщо забув раніше
             pstmt.setString(2, comment.getText());
@@ -32,7 +32,7 @@ public class JdbcCommentRepository implements CommentRepositoryPort {
     @Override
     public Comment findById(Long id) {
         String sql = "SELECT * FROM comments WHERE id = ?";
-        try (Connection conn = DbConfig.getConnection();
+        try (Connection conn = dbConfig.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setLong(1, id);
             ResultSet rs = pstmt.executeQuery();
@@ -50,7 +50,7 @@ public class JdbcCommentRepository implements CommentRepositoryPort {
 
     @Override
     public void delete(Long id) {
-        try (Connection conn = DbConfig.getConnection();
+        try (Connection conn = dbConfig.getConnection();
              PreparedStatement pstmt = conn.prepareStatement("DELETE FROM comments WHERE id = ?")) {
             pstmt.setLong(1, id);
             pstmt.executeUpdate();

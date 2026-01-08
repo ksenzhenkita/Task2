@@ -20,7 +20,7 @@ public class JdbcBookRepository implements CatalogRepositoryPort {
         List<Book> books = new ArrayList<>();
         String sql = "SELECT * FROM books";
 
-        try (Connection conn = DbConfig.getConnection();
+        try (Connection conn = dbConfig.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -40,7 +40,7 @@ public class JdbcBookRepository implements CatalogRepositoryPort {
     @Override
     public Book findById(Long id) {
         String sql = "SELECT * FROM books WHERE id = ?";
-        try (Connection conn = DbConfig.getConnection();
+        try (Connection conn = dbConfig.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setLong(1, id);
@@ -58,7 +58,7 @@ public class JdbcBookRepository implements CatalogRepositoryPort {
     @Override
     public void delete(Long id) {
         String sql = "DELETE FROM books WHERE id = ?";
-        try (Connection conn = DbConfig.getConnection();
+        try (Connection conn = dbConfig.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setLong(1, id);
             pstmt.executeUpdate();
