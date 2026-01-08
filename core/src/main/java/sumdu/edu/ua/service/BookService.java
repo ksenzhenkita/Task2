@@ -4,6 +4,7 @@ import sumdu.edu.ua.model.Comment;
 import sumdu.edu.ua.port.CommentRepositoryPort;
 import java.time.LocalDateTime;
 
+@Service
 public class BookService {
     private final CommentRepositoryPort commentRepository;
 
