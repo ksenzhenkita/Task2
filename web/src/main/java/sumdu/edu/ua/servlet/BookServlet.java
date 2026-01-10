@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import sumdu.edu.ua.dto.ErrorResponse;
 import sumdu.edu.ua.repository.JdbcBookRepository;
 import sumdu.edu.ua.model.Book;
+import sumdu.edu.ua.service.BookService;
+import sumdu.edu.ua.web.Infrastructure;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,7 +19,7 @@ import java.util.List;
 @WebServlet("/books")
 public class BookServlet extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(BookServlet.class);
-    private final JdbcBookRepository repository = new JdbcBookRepository();
+    private final BookService bookService = new Infrastructure().getBookService();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
@@ -29,8 +31,7 @@ public class BookServlet extends HttpServlet {
             String query = req.getParameter("q");
             String page = req.getParameter("page");
 
-            // Для простоти зараз повернемо всі книги
-            List<Book> books = repository.findAll();
+            List<Book> books = bookService.getAllBooks();
 
             log.info("Successfully retrieved {} books", books.size());
             resp.setStatus(HttpServletResponse.SC_OK);

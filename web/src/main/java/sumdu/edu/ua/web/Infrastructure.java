@@ -18,7 +18,7 @@ public class Infrastructure {
         JdbcCommentRepository commentRepo = new JdbcCommentRepository(dbConfig);
 
         // 3. Ручне створення сервісу (те, що робив @Service)
-        this.bookService = new BookService(bookRepo, commentRepo);
+        this.bookService = new BookService(commentRepo, bookRepo);
     }
 
     public BookService getBookService() {

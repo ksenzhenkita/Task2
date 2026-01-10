@@ -1,6 +1,5 @@
 package sumdu.edu.ua.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import sumdu.edu.ua.model.Comment;
 import sumdu.edu.ua.model.*;
@@ -12,8 +11,11 @@ import java.time.LocalDateTime;
 @Repository
 public class JdbcCommentRepository implements CommentRepositoryPort {
 
-    @Autowired // Field Injection (тільки для демонстрації в лабі)
-    private DbConfig dbConfig;
+    private final DbConfig dbConfig;
+
+    public JdbcCommentRepository(DbConfig dbConfig) {
+        this.dbConfig = dbConfig;
+    }
 
     @Override
     public void save(Comment comment) {

@@ -6,6 +6,7 @@ import sumdu.edu.ua.model.Comment;
 import sumdu.edu.ua.port.CatalogRepositoryPort;
 import sumdu.edu.ua.port.CommentRepositoryPort;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class BookService {
@@ -46,6 +47,11 @@ public class BookService {
 
         // Використовуємо поле КЛАСУ, а не створюємо нову змінну
         return catalogRepository.findById(id);
+    }
+
+    public List<Book> getAllBooks() {
+        // Викликаємо метод findAll() через репозиторій
+        return catalogRepository.findAll();
     }
 
     // Бізнес-правило: видалення лише протягом 24 годин
